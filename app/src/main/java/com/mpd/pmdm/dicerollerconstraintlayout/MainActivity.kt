@@ -3,44 +3,47 @@ package com.mpd.pmdm.dicerollerconstraintlayout
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.mpd.pmdm.dicerollerconstraintlayout.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+    private val twoDicesViewModel: TwoDicesViewModel by viewModels()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        //Código añadido
-        //Creo aquí los dos dados, y se los paso a la función
-        val dice1 = Dice(6)
-        val dice2 = Dice(6)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //Apunto desde aquí a los dos ImageView
-        val dice1Image:ImageView = findViewById(R.id.ivDice1)
-        val dice2Image:ImageView = findViewById(R.id.ivDice2)
-
-        //Le paso a la función el objeto dado, y la imagen de la UI correspondiente a actualizar
-        //cuando carga la aplicación
-        rollDice(dice1, dice1Image)
-        rollDice(dice2, dice2Image)
+        val dice1Image:ImageView = binding.ivDice1
+        val dice2Image:ImageView = binding.ivDice2
 
         //asignamos el mismo comportamiento en el onClick
-        val rollButton: Button = findViewById(R.id.btnRoll);
+        val rollButton: Button = binding.btnRoll;
         rollButton.setOnClickListener {
-            rollDice(dice1, dice1Image);
-            rollDice(dice2, dice2Image);
+            twoDicesViewModel.rollDices()
         }
+
+        twoDicesViewModel.currentSideDice1.observe(this){
+            updateDiceImage(it, dice1Image)
+        }
+
+        twoDicesViewModel.currentSideDice2.observe(this){caraDado ->
+            updateDiceImage(caraDado, dice2Image)
+        }
+
     }
 
 
     /**
      * Función que crea un dado, lo tira, y muestra su valor en la IU
      */
-    private fun rollDice(dice: Dice, imageViewDice: ImageView) {
-        val diceValue = dice.roll()
+    private fun updateDiceImage(diceSide: Int, imageViewDice: ImageView) {
 
-
-        val imgDiceResource = when(diceValue){
+        val imgDiceResource = when(diceSide){
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
             3 -> R.drawable.dice_3
@@ -53,7 +56,9 @@ class MainActivity : AppCompatActivity() {
 
         imageViewDice.setImageResource(imgDiceResource)
         //Le damos una descripción a la imagen para aportar accesibilidad
-        imageViewDice.contentDescription = diceValue.toString()
+        imageViewDice.contentDescription = diceSide.toString()
     }
 }
+
+
 
