@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-class TwoDicesViewModel(): ViewModel() {
+class TwoDicesViewModel(val numSides: Int): ViewModel() {
 
     private val dice1 = Dice(6)
     private val dice2 = Dice(6)
@@ -15,5 +15,14 @@ class TwoDicesViewModel(): ViewModel() {
     fun rollDices(){
         dice1.roll()
         dice2.roll()
+    }
+}
+
+class TwoDicesViewModelFactory(val caras: Int): ViewModelProvider.Factory{
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        @Suppress("UNCHECKED_CAST")
+        if(modelClass.isAssignableFrom(TwoDicesViewModel::class.java))
+            return TwoDicesViewModel(caras) as T
+        throw IllegalArgumentException("ModelClass is not an instance of TwoDicesViewModel")
     }
 }
