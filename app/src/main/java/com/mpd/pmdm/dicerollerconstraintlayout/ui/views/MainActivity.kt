@@ -1,15 +1,20 @@
-package com.mpd.pmdm.dicerollerconstraintlayout
+package com.mpd.pmdm.dicerollerconstraintlayout.ui.views
 
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.mpd.pmdm.dicerollerconstraintlayout.R
 import com.mpd.pmdm.dicerollerconstraintlayout.databinding.ActivityMainBinding
+import com.mpd.pmdm.dicerollerconstraintlayout.ui.viewmodel.TwoDicesViewModel
+import com.mpd.pmdm.dicerollerconstraintlayout.ui.viewmodel.TwoDicesViewModelFactory
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val twoDicesViewModel: TwoDicesViewModel by viewModels()
+    private val twoDicesViewModel: TwoDicesViewModel by viewModels(){
+        TwoDicesViewModelFactory(6)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

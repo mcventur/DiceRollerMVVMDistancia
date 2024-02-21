@@ -1,13 +1,14 @@
-package com.mpd.pmdm.dicerollerconstraintlayout
+package com.mpd.pmdm.dicerollerconstraintlayout.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.mpd.pmdm.dicerollerconstraintlayout.ui.views.Dice
 
 class TwoDicesViewModel(val numSides: Int): ViewModel() {
 
-    private val dice1 = Dice(6)
-    private val dice2 = Dice(6)
+    private val dice1 = Dice(numSides)
+    private val dice2 = Dice(numSides)
 
     val currentSideDice1: LiveData<Int> = dice1.currentSide
     val currentSideDice2: LiveData<Int> = dice2.currentSide

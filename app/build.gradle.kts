@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -40,8 +41,15 @@ android {
 
 dependencies {
     val activity_version = "1.6.1"
+    val room_version = "2.6.1"
+
+
     //Para usar el delegado viewModels() y otras funciones de JetPack en actividades
     implementation("androidx.activity:activity-ktx:$activity_version")
+    //Dependencias de Room
+    implementation("androidx.room:room-runtime:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
+
 
 
 
