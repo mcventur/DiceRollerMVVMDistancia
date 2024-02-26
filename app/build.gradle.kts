@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.mpd.pmdm.dicerollerconstraintlayout"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.mpd.pmdm.dicerollerconstraintlayout"
@@ -49,6 +49,7 @@ dependencies {
     //Dependencias de Room
     implementation("androidx.room:room-runtime:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
 
 
 
