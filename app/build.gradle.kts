@@ -40,12 +40,16 @@ android {
 }
 
 dependencies {
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
     val activity_version = "1.6.1"
     val room_version = "2.6.1"
+    val fragment_version = "1.6.2"
 
 
-    //Para usar el delegado viewModels() y otras funciones de JetPack en actividades
+    //Para usar el delegado viewModels() y otras funciones de JetPack en actividades o fragmentos
     implementation("androidx.activity:activity-ktx:$activity_version")
+    implementation("androidx.fragment:fragment-ktx:$fragment_version")
     //Dependencias de Room
     implementation("androidx.room:room-runtime:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
