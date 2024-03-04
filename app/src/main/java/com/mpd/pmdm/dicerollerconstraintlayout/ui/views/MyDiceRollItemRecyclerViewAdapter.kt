@@ -6,6 +6,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mpd.pmdm.dicerollerconstraintlayout.data.database.DiceRolls
 import com.mpd.pmdm.dicerollerconstraintlayout.databinding.FragmentDiceRollItemBinding
+import java.text.SimpleDateFormat
+import java.util.Date
 
 
 /**
@@ -30,20 +32,20 @@ class MyDiceRollItemRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-//        holder.idView.text = item.id
-//        holder.contentView.text = item.content
+        holder.bindData(item)
     }
 
     override fun getItemCount(): Int = values.size
 
-    inner class ViewHolder(binding: FragmentDiceRollItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.itemNumber
-        val contentView: TextView = binding.content
-
-        override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
+    inner class ViewHolder(val binding: FragmentDiceRollItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bindData(item: DiceRolls){
+            binding.idItem.text = item.id.toString()
+            binding.dice1ResultItem.text = item.dice1Result.toString()
+            binding.dice2ResultItem.text = item.dice2Result.toString()
+            binding.rollDateItem.text = SimpleDateFormat("dd/MM/yyyy h:mm a")
+                .format(Date(item.timestamp))
         }
+
     }
 
 }
