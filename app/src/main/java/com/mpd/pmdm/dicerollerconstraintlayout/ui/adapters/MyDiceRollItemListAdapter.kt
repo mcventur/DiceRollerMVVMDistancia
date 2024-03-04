@@ -1,22 +1,33 @@
-package com.mpd.pmdm.dicerollerconstraintlayout.ui.views
+package com.mpd.pmdm.dicerollerconstraintlayout.ui.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mpd.pmdm.dicerollerconstraintlayout.data.database.DiceRolls
 import com.mpd.pmdm.dicerollerconstraintlayout.databinding.FragmentDiceRollItemBinding
 import java.text.SimpleDateFormat
 import java.util.Date
 
+class MyDiceRollItemListAdapter()
+    : ListAdapter<DiceRolls, MyDiceRollItemListAdapter.ViewHolder>(DiffUtilDiceRolls) {
 
-/**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
- * TODO: Replace the implementation with code for your data type.
- */
-class MyDiceRollItemRecyclerViewAdapter(
-    private var diceRollsList: List<DiceRolls>
-) : RecyclerView.Adapter<MyDiceRollItemRecyclerViewAdapter.ViewHolder>() {
+    private companion object{
+        private val DiffUtilDiceRolls = object: DiffUtil.ItemCallback<DiceRolls>(){
+            override fun areItemsTheSame(oldItem: DiceRolls, newItem: DiceRolls): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: DiceRolls, newItem: DiceRolls): Boolean {
+                return oldItem == newItem
+            }
+
+        }
+    }
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -31,11 +42,8 @@ class MyDiceRollItemRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = diceRollsList[position]
-        holder.bindData(item)
+        holder.bindData(getItem(position))
     }
-
-    override fun getItemCount(): Int = diceRollsList.size
 
     inner class ViewHolder(val binding: FragmentDiceRollItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindData(item: DiceRolls){
@@ -45,13 +53,6 @@ class MyDiceRollItemRecyclerViewAdapter(
             binding.rollDateItem.text = SimpleDateFormat("dd/MM/yyyy h:mm a")
                 .format(Date(item.timestamp))
         }
-
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateList(newList: List<DiceRolls>){
-        diceRollsList = newList
-        notifyDataSetChanged()
     }
 
 }

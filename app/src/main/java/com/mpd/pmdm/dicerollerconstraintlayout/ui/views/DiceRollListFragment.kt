@@ -9,6 +9,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mpd.pmdm.dicerollerconstraintlayout.databinding.FragmentDiceRollListBinding
+import com.mpd.pmdm.dicerollerconstraintlayout.ui.adapters.MyDiceRollItemListAdapter
+import com.mpd.pmdm.dicerollerconstraintlayout.ui.adapters.MyDiceRollItemRecyclerViewAdapter
 import com.mpd.pmdm.dicerollerconstraintlayout.ui.viewmodel.TwoDicesViewModel
 import com.mpd.pmdm.dicerollerconstraintlayout.ui.viewmodel.TwoDicesViewModelFactory
 
@@ -38,7 +40,7 @@ class DiceRollListFragment : Fragment() {
 
         // Set the adapter
         val view = binding.list
-        val rollsAdapter = MyDiceRollItemRecyclerViewAdapter(emptyList())
+        val rollsAdapter = MyDiceRollItemListAdapter()
         with(view) {
             layoutManager = when {
                 columnCount <= 1 -> LinearLayoutManager(context)
@@ -49,7 +51,9 @@ class DiceRollListFragment : Fragment() {
 
 
         viewModel.allDiceRolls.observe(viewLifecycleOwner){
-            rollsAdapter.updateList(it)
+            rollsAdapter.submitList(it){
+                binding.list.scrollToPosition(0)
+            }
         }
     }
 }
