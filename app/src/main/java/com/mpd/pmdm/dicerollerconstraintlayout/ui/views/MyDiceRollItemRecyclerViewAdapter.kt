@@ -1,8 +1,8 @@
 package com.mpd.pmdm.dicerollerconstraintlayout.ui.views
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mpd.pmdm.dicerollerconstraintlayout.data.database.DiceRolls
 import com.mpd.pmdm.dicerollerconstraintlayout.databinding.FragmentDiceRollItemBinding
@@ -15,7 +15,7 @@ import java.util.Date
  * TODO: Replace the implementation with code for your data type.
  */
 class MyDiceRollItemRecyclerViewAdapter(
-    private val values: List<DiceRolls>
+    private var diceRollsList: List<DiceRolls>
 ) : RecyclerView.Adapter<MyDiceRollItemRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,11 +31,11 @@ class MyDiceRollItemRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
+        val item = diceRollsList[position]
         holder.bindData(item)
     }
 
-    override fun getItemCount(): Int = values.size
+    override fun getItemCount(): Int = diceRollsList.size
 
     inner class ViewHolder(val binding: FragmentDiceRollItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindData(item: DiceRolls){
@@ -46,6 +46,12 @@ class MyDiceRollItemRecyclerViewAdapter(
                 .format(Date(item.timestamp))
         }
 
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateList(newList: List<DiceRolls>){
+        diceRollsList = newList
+        notifyDataSetChanged()
     }
 
 }
