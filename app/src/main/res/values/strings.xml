@@ -7,4 +7,9 @@
     <string name="dado_1">Dado 1</string>
     <string name="dado_2">Dado 2</string>
     <string name="fecha">Fecha</string>
+    <string name="clear">Limpiar</string>
+    <string name="clear_dialog_title">Limpieza de datos</string>
+    <string name="clear_dialog_message">Se borrarán todos los registros de lanzamiento. \n¿Desea continuar?</string>
+    <string name="cancel">Cancelar</string>
+    <string name="confirm">Confirmar</string>
 </resources>

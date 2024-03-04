@@ -36,7 +36,15 @@ class TwoDicesViewModel(val numSides: Int, val repository: LocalRepository): Vie
                 repository.insertRoll(resultDice1.toByte(), resultDice2.toByte())
             }
         }
+    }
 
+    /**
+     * Limpia la bdd de tiradas
+     */
+    fun clearRolls(){
+        viewModelScope.launch {
+            repository.clearRolls()
+        }
     }
 }
 

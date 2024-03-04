@@ -1,5 +1,6 @@
 package com.mpd.pmdm.dicerollerconstraintlayout.ui.views
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -52,6 +53,20 @@ class DadosFragment : Fragment() {
 
         twoDicesViewModel.currentSideDice2.observe(viewLifecycleOwner){caraDado ->
             updateDiceImage(caraDado, dice2Image)
+        }
+
+        binding.btnLimpiar.setOnClickListener {
+            AlertDialog.Builder(context)
+                .setTitle(getString(R.string.clear_dialog_title))
+                .setMessage(getString(R.string.clear_dialog_message))
+                .setNegativeButton(getString(R.string.cancel)){ dialog, _ ->
+                    dialog.cancel()
+                }
+                .setPositiveButton(getString(R.string.confirm)){_, _ ->
+                    twoDicesViewModel.clearRolls()
+                }
+                //.setCancelable(false)
+                .show()
         }
 
     }

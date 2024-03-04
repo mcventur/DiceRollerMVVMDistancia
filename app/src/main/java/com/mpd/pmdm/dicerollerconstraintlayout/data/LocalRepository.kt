@@ -15,4 +15,9 @@ class LocalRepository(private val dataBase: RollsDatabase) {
         dao.insertDiceRoll(diceRollEntity)
     }
 
+    /**
+     * Limpia todos los registros de la tabla dice_rolls
+     */
+    suspend fun clearRolls() = dao.clearDiceRolls()
+
 }
