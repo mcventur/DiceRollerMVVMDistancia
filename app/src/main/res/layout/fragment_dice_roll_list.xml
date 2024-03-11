@@ -8,14 +8,14 @@
 
     <include android:id="@+id/listHeader"
         layout="@layout/fragment_dice_roll_list_header"/>
-
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:name="com.mpd.pmdm.dicerollerconstraintlayout.ui.views.DiceRollListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context=".ui.views.DiceRollListFragment"
         tools:listitem="@layout/fragment_dice_roll_item" />

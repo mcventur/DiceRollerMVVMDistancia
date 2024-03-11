@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.views.MainActivity"
-    android:padding="@dimen/layout_padding">
+    >
+
+    <!-- Barra de menú supeerior -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            android:background="?attr/colorPrimaryContainer"
+            app:menu="@menu/main_menu" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/dadosFragmentContainer"
+        android:id="@+id/navHost"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:name="com.mpd.pmdm.dicerollerconstraintlayout.ui.views.DadosFragment"
-        tools:layout="@layout/fragment_dados"
-        />
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:padding="@dimen/layout_padding"/>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/rollsHistoryFragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:name="com.mpd.pmdm.dicerollerconstraintlayout.ui.views.DiceRollListFragment"
-        tools:layout="@layout/fragment_dice_roll_list" />
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

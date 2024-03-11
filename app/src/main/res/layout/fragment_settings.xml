@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.views.SettingsFragment"
+    android:padding="@dimen/layout_padding"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iconTimeFormat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/baseline_access_time_24"/>
+    <TextView
+        android:id="@+id/labelTimeFormat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time_format_display"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iconTimeFormat"
+        android:layout_marginStart="5dp"/>
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/formatoHora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelTimeFormat"
+        app:singleSelection="true">
+
+        <Button
+            android:id="@+id/AM_PM_format"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/am_pm_format" />
+
+        <Button
+            android:id="@+id/hours_24_format"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/formato_24_horas" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <ImageView
+        android:id="@+id/displayIdIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/eye_svgrepo_com"
+        app:layout_constraintBottom_toBottomOf="@id/displayIdSwitch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/displayIdSwitch" />
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/displayIdSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="@dimen/text_margin"
+        android:checked="true"
+        android:text="@string/mostrar_columna_id"
+        app:layout_constraintStart_toEndOf="@+id/displayIdIcon"
+        app:layout_constraintTop_toBottomOf="@id/formatoHora" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

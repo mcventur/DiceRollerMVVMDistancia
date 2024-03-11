@@ -8,8 +8,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.mpd.pmdm.dicerollerconstraintlayout.core.DiceRollerApp
 import com.mpd.pmdm.dicerollerconstraintlayout.data.LocalRepository
-import com.mpd.pmdm.dicerollerconstraintlayout.data.database.DiceRolls
-import com.mpd.pmdm.dicerollerconstraintlayout.ui.views.Dice
 import kotlinx.coroutines.launch
 
 class TwoDicesViewModel(val numSides: Int, val repository: LocalRepository): ViewModel() {
