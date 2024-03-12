@@ -8,9 +8,15 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.mpd.pmdm.dicerollerconstraintlayout.core.DiceRollerApp
 import com.mpd.pmdm.dicerollerconstraintlayout.data.LocalRepository
+import com.mpd.pmdm.dicerollerconstraintlayout.data.PreferencesRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-class TwoDicesViewModel(val numSides: Int, val repository: LocalRepository): ViewModel() {
+class TwoDicesViewModel(
+    numSides: Int,
+    val repository: LocalRepository,
+    val prefsRepo: PreferencesRepository
+) : ViewModel() {
 
     private val dice1 = Dice(numSides)
     private val dice2 = Dice(numSides)
@@ -18,10 +24,11 @@ class TwoDicesViewModel(val numSides: Int, val repository: LocalRepository): Vie
     val currentSideDice1: LiveData<Int> = dice1.currentSide
     val currentSideDice2: LiveData<Int> = dice2.currentSide
 
+
     //Listado de lanzamientos
     val allDiceRolls = repository.allRolls
 
-    fun rollDices(){
+    fun rollDices() {
         dice1.roll()
         dice2.roll()
 
@@ -30,7 +37,7 @@ class TwoDicesViewModel(val numSides: Int, val repository: LocalRepository): Vie
         val resultDice2 = currentSideDice2.value
 
         viewModelScope.launch {
-            if(resultDice1 != null && resultDice2 != null){
+            if (resultDice1 != null && resultDice2 != null) {
                 repository.insertRoll(resultDice1.toByte(), resultDice2.toByte())
             }
         }
@@ -39,18 +46,19 @@ class TwoDicesViewModel(val numSides: Int, val repository: LocalRepository): Vie
     /**
      * Limpia la bdd de tiradas
      */
-    fun clearRolls(){
+    fun clearRolls() {
         viewModelScope.launch {
             repository.clearRolls()
         }
     }
 }
 
-class TwoDicesViewModelFactory(val caras: Int): ViewModelProvider.Factory{
+class TwoDicesViewModelFactory(val caras: Int) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
         val app = checkNotNull(extras[APPLICATION_KEY]) as DiceRollerApp
         val repo = app.localRepo
-        return TwoDicesViewModel(caras, repo) as T
+        val repoPrefs = app.prefsRepo
+        return TwoDicesViewModel(caras, repo, repoPrefs) as T
     }
 }
