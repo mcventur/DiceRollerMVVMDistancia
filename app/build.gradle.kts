@@ -45,10 +45,14 @@ dependencies {
     val fragment_version = "1.6.2"
     val nav_version = "2.7.7"
     val preferences_ds_version = "1.0.0"
+    val lifecycle_version = "2.7.0"
 
 
     //DataStore Preferences
     implementation("androidx.datastore:datastore-preferences:$preferences_ds_version")
+
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 
     //Navigation Component
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")

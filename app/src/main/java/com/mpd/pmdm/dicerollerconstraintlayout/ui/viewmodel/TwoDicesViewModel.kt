@@ -4,11 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.mpd.pmdm.dicerollerconstraintlayout.core.DiceRollerApp
 import com.mpd.pmdm.dicerollerconstraintlayout.data.LocalRepository
 import com.mpd.pmdm.dicerollerconstraintlayout.data.PreferencesRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -24,6 +26,8 @@ class TwoDicesViewModel(
     val currentSideDice1: LiveData<Int> = dice1.currentSide
     val currentSideDice2: LiveData<Int> = dice2.currentSide
 
+    val userPreferences: Flow<UserPreferences> = prefsRepo.userPreferencesFlow
+    val userPreferencesLive: LiveData<UserPreferences> = prefsRepo.userPreferencesFlow.asLiveData()
 
     //Listado de lanzamientos
     val allDiceRolls = repository.allRolls
@@ -49,6 +53,12 @@ class TwoDicesViewModel(
     fun clearRolls() {
         viewModelScope.launch {
             repository.clearRolls()
+        }
+    }
+
+    fun setTimeFormatPreference(timeFormat: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            prefsRepo.setTimeFormat(timeFormat)
         }
     }
 }

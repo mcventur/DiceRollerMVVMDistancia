@@ -1,6 +1,7 @@
 package com.mpd.pmdm.dicerollerconstraintlayout.ui.views
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,6 +55,15 @@ class DiceRollListFragment : Fragment() {
             rollsAdapter.submitList(it){
                 binding.list.scrollToPosition(0)
             }
+        }
+
+        viewModel.userPreferencesLive.observe(viewLifecycleOwner){
+            userPreferences ->
+            val AM_PM_Format = userPreferences.time_format == "AM_PM_format"
+            rollsAdapter.setAM_PM_Format(AM_PM_Format)
+            Log.d("DiceRollListFragment", "Actualizando TimeFormat: ${userPreferences.time_format}")
+
+            binding.listHeader.idHeader.visibility = if(userPreferences.display_id) View.VISIBLE else View.GONE
         }
     }
 }

@@ -2,6 +2,7 @@ package com.mpd.pmdm.dicerollerconstraintlayout.ui.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -13,6 +14,8 @@ import java.util.Date
 
 class MyDiceRollItemListAdapter()
     : ListAdapter<DiceRolls, MyDiceRollItemListAdapter.ViewHolder>(DiffUtilDiceRolls) {
+
+        private var AM_PM_format: Boolean = true
 
     private companion object{
         private val DiffUtilDiceRolls = object: DiffUtil.ItemCallback<DiceRolls>(){
@@ -50,9 +53,16 @@ class MyDiceRollItemListAdapter()
             binding.idItem.text = item.id.toString()
             binding.dice1ResultItem.text = item.dice1Result.toString()
             binding.dice2ResultItem.text = item.dice2Result.toString()
-            binding.rollDateItem.text = SimpleDateFormat("dd/MM/yyyy h:mm a")
+
+            val formatoFecha: String = if(AM_PM_format) "dd/MM/yyyy h:mm a" else "dd/MM/yyyy hh:mm"
+            binding.rollDateItem.text = SimpleDateFormat(formatoFecha)
                 .format(Date(item.timestamp))
         }
+    }
+
+    fun setAM_PM_Format(newValue: Boolean){
+        AM_PM_format = newValue
+        notifyDataSetChanged()
     }
 
 }

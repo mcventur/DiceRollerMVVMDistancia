@@ -54,6 +54,7 @@ class PreferencesRepository(val dataStore: DataStore<Preferences>) {
         try{
             dataStore.edit { preferences ->
                 preferences[PreferencesKeys.TIME_FORMAT] = timeFormat
+                Log.d("PreferencesRepository", "Escribiendo TimeFormat $timeFormat")
             }
         }catch(e: Exception){
             e.printStackTrace()
